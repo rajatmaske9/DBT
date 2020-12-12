@@ -1,0 +1,191 @@
+use assig3 ;
+ show tables ;
++------------------+
+| Tables_in_assig3 |
++------------------+
+| department       |
+| employee         |
++------------------+
+
+desc department ;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_id   | int(11)     | NO   | PRI | NULL    |       |
+| dept_name | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+
+.select * from department ;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|       1 | Finance   |
+|       2 | Training  |
+|       3 | Marketing |
++---------+-----------+
+
+select * from employee ;
++-------+----------+--------+---------+---------+
+| empid | emp_name | salary | manager | dept_id |
++-------+----------+--------+---------+---------+
+|     1 | Arun     |   8000 |       1 |       1 |
+|     2 | Kiran    |   7000 |       1 |       1 |
+|     3 | Scott    |   3000 |       1 |       1 |
+|     4 | Max      |   9000 |       0 |       2 |
+|     5 | Jack     |   8000 |       4 |       2 |
+|    11 |  rajat   |   6000 |       1 |    NULL |
++-------+----------+--------+---------+---------+
+
+
+ update employee set dept_id = 3 where emp_name = "rajat";
+select * from employee ;
++-------+----------+--------+---------+---------+
+| empid | emp_name | salary | manager | dept_id |
++-------+----------+--------+---------+---------+
+|     1 | Arun     |   8000 |       1 |       1 |
+|     2 | Kiran    |   7000 |       1 |       1 |
+|     3 | Scott    |   3000 |       1 |       1 |
+|     4 | Max      |   9000 |       0 |       2 |
+|     5 | Jack     |   8000 |       4 |       2 |
+|    11 |  rajat   |   6000 |       1 |    NULL |
++-------+----------+--------+---------+---------+
+
+UPDATE employee SET dept_id = 3 WHERE empid=11;
+select * from employee ;
++-------+----------+--------+---------+---------+
+| empid | emp_name | salary | manager | dept_id |
++-------+----------+--------+---------+---------+
+|     1 | Arun     |   8000 |       1 |       1 |
+|     2 | Kiran    |   7000 |       1 |       1 |
+|     3 | Scott    |   3000 |       1 |       1 |
+|     4 | Max      |   9000 |       0 |       2 |
+|     5 | Jack     |   8000 |       4 |       2 |
+|    11 |  rajat   |   6000 |       1 |       3 |
++-------+----------+--------+---------+---------+
+
+SELECT * FROM EMPLOYEE ORDER BY salary DESC LIMIT 3;
++-------+----------+--------+---------+---------+
+| empid | emp_name | salary | manager | dept_id |
++-------+----------+--------+---------+---------+
+|     4 | Max      |   9000 |       0 |       2 |
+|     1 | Arun     |   8000 |       1 |       1 |
+|     5 | Jack     |   8000 |       4 |       2 |
++-------+----------+--------+---------+---------+
+
+ select empid , dept_name,dept_name from employee,department where employee.dept_id=department.dept_id;
++-------+-----------+-----------+
+| empid | dept_name | dept_name |
++-------+-----------+-----------+
+|     1 | Finance   | Finance   |
+|     2 | Finance   | Finance   |
+|     3 | Finance   | Finance   |
+|     4 | Training  | Training  |
+|     5 | Training  | Training  |
+|    11 | Marketing | Marketing |
++-------+-----------+-----------+
+
+ select empid , emp_name,dept_name from employee,department where employee.dept_id=department.dept_id;
++-------+----------+-----------+
+| empid | emp_name | dept_name |
++-------+----------+-----------+
+|     1 | Arun     | Finance   |
+|     2 | Kiran    | Finance   |
+|     3 | Scott    | Finance   |
+|     4 | Max      | Training  |
+|     5 | Jack     | Training  |
+|    11 |  rajat   | Marketing |
++-------+----------+-----------+
+
+UPDATE employee SET empid = 6 WHERE empid=11;
+select empid , emp_name,dept_name from employee,department where employee.dept_id=department.dept_id;
++-------+----------+-----------+
+| empid | emp_name | dept_name |
++-------+----------+-----------+
+|     1 | Arun     | Finance   |
+|     2 | Kiran    | Finance   |
+|     3 | Scott    | Finance   |
+|     4 | Max      | Training  |
+|     5 | Jack     | Training  |
+|     6 |  rajat   | Marketing |
++-------+----------+-----------+
+
+ select * from employee ;
++-------+----------+--------+---------+---------+
+| empid | emp_name | salary | manager | dept_id |
++-------+----------+--------+---------+---------+
+|     1 | Arun     |   8000 |       1 |       1 |
+|     2 | Kiran    |   7000 |       1 |       1 |
+|     3 | Scott    |   3000 |       1 |       1 |
+|     4 | Max      |   9000 |       0 |       2 |
+|     5 | Jack     |   8000 |       4 |       2 |
+|     6 |  rajat   |   6000 |       1 |       3 |
++-------+----------+--------+---------+---------+
+
+ select * from department ;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|       1 | Finance   |
+|       2 | Training  |
+|       3 | Marketing |
++---------+-----------+
+
+ select empid , emp_name,dept_name,salary,manager from employee,department where employee.dept_id=department.dept_id;
++-------+----------+-----------+--------+---------+
+| empid | emp_name | dept_name | salary | manager |
++-------+----------+-----------+--------+---------+
+|     1 | Arun     | Finance   |   8000 |       1 |
+|     2 | Kiran    | Finance   |   7000 |       1 |
+|     3 | Scott    | Finance   |   3000 |       1 |
+|     4 | Max      | Training  |   9000 |       0 |
+|     5 | Jack     | Training  |   8000 |       4 |
+|     6 |  rajat   | Marketing |   6000 |       1 |
++-------+----------+-----------+--------+---------+
+
+select empid , emp_name,salary,manager from employee left outer join department on employee.dept_id=department.dept_id;
++-------+----------+--------+---------+
+| empid | emp_name | salary | manager |
++-------+----------+--------+---------+
+|     1 | Arun     |   8000 |       1 |
+|     2 | Kiran    |   7000 |       1 |
+|     3 | Scott    |   3000 |       1 |
+|     4 | Max      |   9000 |       0 |
+|     5 | Jack     |   8000 |       4 |
+|     6 |  rajat   |   6000 |       1 |
++-------+----------+--------+---------+
+
+
+select empid , emp_name,salary,manager from employee right outer join department on employee.dept_id=department.dept_id;
++-------+----------+--------+---------+
+| empid | emp_name | salary | manager |
++-------+----------+--------+---------+
+|     1 | Arun     |   8000 |       1 |
+|     2 | Kiran    |   7000 |       1 |
+|     3 | Scott    |   3000 |       1 |
+|     4 | Max      |   9000 |       0 |
+|     5 | Jack     |   8000 |       4 |
+|     6 |  rajat   |   6000 |       1 |
++-------+----------+--------+---------+
+
+select empid , emp_name,salary,manager from employee  join department on employee.dept_id=department.dept_id;
++-------+----------+--------+---------+
+| empid | emp_name | salary | manager |
++-------+----------+--------+---------+
+|     1 | Arun     |   8000 |       1 |
+|     2 | Kiran    |   7000 |       1 |
+|     3 | Scott    |   3000 |       1 |
+|     4 | Max      |   9000 |       0 |
+|     5 | Jack     |   8000 |       4 |
+|     6 |  rajat   |   6000 |       1 |
++-------+----------+--------+---------+
+
+select * from employee where salary >(select salary from employee where emp_name="kiran");
++-------+----------+--------+---------+---------+
+| empid | emp_name | salary | manager | dept_id |
++-------+----------+--------+---------+---------+
+|     1 | Arun     |   8000 |       1 |       1 |
+|     4 | Max      |   9000 |       0 |       2 |
+|     5 | Jack     |   8000 |       4 |       2 |
++-------+----------+--------+---------+---------+
+
+

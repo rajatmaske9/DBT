@@ -1,0 +1,395 @@
+create Assig2
+use Assig2 ;
+ create table Publishers (pname varchar(30) , phone int(10) , email varchar(15) ) ;
+ create table Authors ( aname varchar(20) , phone int (10) , Authors varchar(30) );
+ create table Titles ( titleid int (6) , title varchar(30) , pubdate Date );
+ create table Titleauthors ( auid int (6) , titleid int (6) , titleauthors varchar(30));
+
+show tables ;
++------------------+
+| Tables_in_assig2 |
++------------------+
+| authors          |
+| publishers       |
+| titleauthors     |
+| titles           |
++------------------+
+
+desc Publishers ;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pname | varchar(30) | YES  |     | NULL    |       |
+| phone | int(10)     | YES  |     | NULL    |       |
+| email | varchar(15) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+ desc Authors ;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| aname   | varchar(20) | YES  |     | NULL    |       |
+| phone   | int(10)     | YES  |     | NULL    |       |
+| Authors | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+desc Titles ;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| titleid | int(6)      | YES  |     | NULL    |       |
+| title   | varchar(30) | YES  |     | NULL    |       |
+| pubdate | date        | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+desc Titleauthors ;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| auid         | int(6)      | YES  |     | NULL    |       |
+| titleid      | int(6)      | YES  |     | NULL    |       |
+| titleauthors | varchar(30) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+
+----------------------------------------------(like)-----------------------------------------------
+
+ create table subject ;
+ create table subject ( subname varchar(25) );
+
+desc subject ;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| subname | varchar(25) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+
+ALTER TABLE Authors DROP COLUMN Authors ;
+
+desc Publishers ;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pname | varchar(30) | YES  |     | NULL    |       |
+| phone | int(10)     | YES  |     | NULL    |       |
+| email | varchar(15) | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+desc Titles ;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| titleid | int(6)      | NO   | PRI | NULL    |       |
+| title   | varchar(30) | YES  |     | NULL    |       |
+| pubdate | date        | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+
+desc titleauthors ;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| auid         | int(6)      | YES  |     | NULL    |       |
+| titleid      | int(6)      | NO   | PRI | NULL    |       |
+| titleauthors | varchar(30) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+
+alter table subject add column sub_id int (5);
+desc subject ;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| subname | varchar(25) | YES  |     | NULL    |       |
+| sub_id  | int(5)      | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+insert into subject values ( "Science ", 2221);
+insert into subject values ( "Arts ", 2222);
+ insert into subject values ( "Maths ", 2223);
+ insert into subject values ( "History ", 2224);
+
+desc subject;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| subname | varchar(25) | YES  |     | NULL    |       |
+| sub_id  | int(5)      | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+ update subject set subname = "History" where sub_id=2221;
+update subject set subname = "Civics" where sub_id=2222;
+ update subject set subname = "Science" where sub_id=2223;
+ update subject set subname = "Maths" where sub_id=2224;
+
+ select * from subject ;
++---------+--------+
+| subname | sub_id |
++---------+--------+
+| History |   2221 |
+| Civics  |   2222 |
+| Science |   2223 |
+| Maths   |   2224 |
++---------+--------+
+
+update subject set subname = "Oracle" where sub_id=2221;
+select * from subject ;
++---------+--------+
+| subname | sub_id |
++---------+--------+
+| Oracle  |   2221 |
+| Civics  |   2222 |
+| Science |   2223 |
+| Maths   |   2224 |
++---------+--------+
+
+select * from subject where subname="Oracle";
++---------+--------+
+| subname | sub_id |
++---------+--------+
+| Oracle  |   2221 |
++---------+--------+
+
+update subject set subname = "java" where sub_id=2222; ;
+update subject set subname = "Microdosft.net" where sub_id=2223;
+
+select * from subject ;
++----------------+--------+
+| subname        | sub_id |
++----------------+--------+
+| Oracle         |   2221 |
+| java           |   2222 |
+| Microdosft.net |   2223 |
+| Maths          |   2224 |
++----------------+--------+
+
+select * from subject where subname like "j%";
++---------+--------+
+| subname | sub_id |
++---------+--------+
+| java    |   2222 |
++---------+--------+
+
+ select * from subject where subname like '%.net%';
++----------------+--------+
+| subname        | sub_id |
++----------------+--------+
+| Microdosft.net |   2223 |
++----------------+--------+
+
+desc authors;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| aname | varchar(20) | YES  |     | NULL    |       |
+| phone | int(10)     | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+
+ select * from authors;
++-----------+---------+
+| aname     | phone   |
++-----------+---------+
+| Vilaytkar | 9486252 |
++-----------+---------+
+
+ select * from authors where aname like "%ar";
++-----------+---------+
+| aname     | phone   |
++-----------+---------+
+| Vilaytkar | 9486252 |
++-----------+---------+
+
+desc publishers ;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pname | varchar(30) | YES  |     | NULL    |       |
+| phone | int(10)     | YES  |     | NULL    |       |
+| email | varchar(15) | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+mysql> insert into publishers values ("Penguin Books India" , 0712345671 ,"penguinbooks@");
+ insert into publishers values ("Hardhill Books India" , 0712345392 ,"hardhillbooks@");
+ insert into publishers values ("Vidya Books India" , 0712356347 ,"vidyabooks@");
+
+select * from publishers ;
++----------------------+-----------+----------------+
+| pname                | phone     | email          |
++----------------------+-----------+----------------+
+| Hardhill Books India | 712345392 | hardhillbooks@ |
+| Penguin Books India  | 712345671 | penguinbooks@  |
+| Vidya Books India    | 712356347 | vidyabooks@    |
++----------------------+-----------+----------------+
+
+ insert into titles values( 999912 ,"HandBook java", 500);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into titles values( 999913 ,"HandBook Oracle", 550);
+Query OK, 1 row affected (0.21 sec)
+
+mysql> insert into titles values( 999914 ,"HandBook .net", 570);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from titles ;
++---------+-----------------+-------+
+| titleid | title           | price |
++---------+-----------------+-------+
+|  999912 | HandBook java   |   500 |
+|  999913 | HandBook Oracle |   550 |
+|  999914 | HandBook .net   |   570 |
++---------+-----------------+-------+
+3 rows in set (0.00 sec)
+
+-----------------------------(relational operator)---------------------------------------
+
+mysql> select * from titles where price<=500;
++---------+---------------+-------+
+| titleid | title         | price |
++---------+---------------+-------+
+|  999912 | HandBook java |   500 |
++---------+---------------+-------+
+
+
+---------------------------------DML----------------------------------------------
+
+create table Employee;
+create table Employee (emp_id int(3) , emp_name varchar(50));
+desc Employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int(3)      | YES  |     | NULL    |       |
+| emp_name | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+alter table Employee add column dept_id int(6);
+desc Employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int(3)      | YES  |     | NULL    |       |
+| emp_name | varchar(50) | YES  |     | NULL    |       |
+| dept_id  | int(6)      | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+alter table Employee drop column emp_name ;
+desc Employee;
++---------+--------+------+-----+---------+-------+
+| Field   | Type   | Null | Key | Default | Extra |
++---------+--------+------+-----+---------+-------+
+| emp_id  | int(3) | YES  |     | NULL    |       |
+| dept_id | int(6) | YES  |     | NULL    |       |
++---------+--------+------+-----+---------+-------+
+
+ alter table Employee add column emp_name char(50) ;
+desc Employee;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| emp_id   | int(3)   | YES  |     | NULL    |       |
+| dept_id  | int(6)   | YES  |     | NULL    |       |
+| emp_name | char(50) | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+
+ ALTER TABLE Employee MODIFY COLUMN emp_name varchar(2);
+desc Employee;
++----------+------------+------+-----+---------+-------+
+| Field    | Type       | Null | Key | Default | Extra |
++----------+------------+------+-----+---------+-------+
+| emp_id   | int(3)     | YES  |     | NULL    |       |
+| dept_id  | int(6)     | YES  |     | NULL    |       |
+| emp_name | varchar(2) | YES  |     | NULL    |       |
++----------+------------+------+-----+---------+-------+
+
+insert into Employee values (103,556771,"Ra");
+ insert into Employee values (104,556772,"Sa");
+insert into Employee values (105,556773,"La");
+
+select * from Employee;
++--------+---------+----------+
+| emp_id | dept_id | emp_name |
++--------+---------+----------+
+|    103 |  556771 | Ra       |
+|    104 |  556772 | Sa       |
+|    105 |  556773 | La       |
++--------+---------+----------+
+
+update Employee set emp_name = "Scout" where emp_id=103;
+ERROR 1406 (22001): Data too long for column 'emp_name' at row 1
+
+ ALTER TABLE Employee MODIFY COLUMN emp_name varchar(7);
+ update Employee set emp_name = "Scout" where emp_id=103;
+
+ select * from Employee;
++--------+---------+----------+
+| emp_id | dept_id | emp_name |
++--------+---------+----------+
+|    103 |  556771 | Scout    |
+|    104 |  556772 | Sa       |
+|    105 |  556773 | La       |
++--------+---------+----------+
+
+ TRUNCATE TABLE Employee;
+select * from Employee;
+Empty set (0.00 sec)
+
+-------------------------------------------------------------------------------------
+
+create table Emp;
+ create table Emp (SAL float(7,3));
+
+desc emp;
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| SAL   | float(7,3) | YES  |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+
+ insert into Emp values (1234.567);
+insert into Emp values (1530.019);
+insert into Emp values (1652.786);
+ insert into Emp values (1775.156);
+
+select * from Emp;
++----------+
+| SAL      |
++----------+
+| 1234.567 |
+| 1530.019 |
+| 1652.786 |
+| 1775.156 |
++----------+
+
+SELECT ROUND(1234.567, 2);
++--------------------+
+| ROUND(1234.567, 2) |
++--------------------+
+|            1234.57 |
++--------------------+
+1 row in set (0.03 sec)
+
+mysql> SELECT ROUND(1234.567, 3);
++--------------------+
+| ROUND(1234.567, 3) |
++--------------------+
+|           1234.567 |
++--------------------+
+1 row in set (0.00 sec)
+
+
+SELECT SQRT(1234.567);
++--------------------+
+| SQRT(1234.567)     |
++--------------------+
+| 35.136405621520254 |
++--------------------+
+1 row in set (0.11 sec)
+
+mysql> SELECT SQRT(625);
++-----------+
+| SQRT(625) |
++-----------+
+|        25 |
++-----------+
+1 row in set (0.00 sec)
+
